@@ -1,6 +1,7 @@
 const db = require("../config/db");
 
 // Get all todos
+// get the todos
 exports.getTodos = (req, res) => {
   db.query("SELECT * FROM todos", (err, result) => {
     if (err) return res.status(500).send(err);
@@ -8,7 +9,7 @@ exports.getTodos = (req, res) => {
   });
 };
 
-// Add todo
+// Add the todo
 exports.addTodo = (req, res) => {
   const { title, description } = req.body;
   db.query("INSERT INTO todos (title, description) VALUES (?, ?)", [title, description], (err, result) => {
@@ -19,7 +20,7 @@ exports.addTodo = (req, res) => {
 });
 };
 
-// Update
+// Update the todo
 exports.updateTodo = (req, res) => {
   const { id } = req.params;
   db.query("UPDATE todos SET completed = !completed WHERE id=?", [id], (err) => {
