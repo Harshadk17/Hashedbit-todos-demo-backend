@@ -14,7 +14,9 @@ exports.addTodo = (req, res) => {
   db.query("INSERT INTO todos (title, description) VALUES (?, ?)", [title, description], (err, result) => {
     if (err) return res.status(500).send(err);
     res.json({ id: result.insertId, title,description, completed: false });
-  });
+  
+
+});
 };
 
 // Update
