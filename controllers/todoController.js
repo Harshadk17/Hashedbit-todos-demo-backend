@@ -11,10 +11,10 @@ exports.getTodos = (req, res) => {
 
 // Add the todo
 exports.addTodo = (req, res) => {
-  const { title, description } = req.body;
-  db.query("INSERT INTO todos (title, description) VALUES (?, ?)", [title, description], (err, result) => {
+  const { title } = req.body;
+  db.query("INSERT INTO todos (title) VALUES (?)", [title], (err, result) => {
     if (err) return res.status(500).send(err);
-    res.json({ id: result.insertId, title,description, completed: false });
+    res.json({ id: result.insertId, title, completed: false });
   
 
 });
@@ -35,5 +35,13 @@ exports.deleteTodo = (req, res) => {
   db.query("DELETE FROM todos WHERE id=?", [id], (err) => {
     if (err) return res.status(500).send(err);
     res.send("Deleted");
+  });
+};
+
+// Delete all todos
+exports.clearAllTodos = (req, res) => {
+  db.query("DELETE FROM todos", (err) => {
+    if (err) return res.status(500).send(err);
+    res.send("All todos deleted");
   });
 };
